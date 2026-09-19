@@ -58,10 +58,14 @@
   .quote-card .emotion { font-size: 12px; color: var(--bad); font-weight: 600; }
   .cta-wrap { text-align: center; }
   .cta-btn {
-    display: inline-block; background: #c7cbd1; color: #fff; font-size: 17px; font-weight: 700;
-    padding: 16px 36px; border-radius: 14px; text-decoration: none; cursor: not-allowed;
+    display: inline-block; background: var(--accent); color: #fff; font-size: 18px; font-weight: 700;
+    padding: 18px 40px; border-radius: 14px; text-decoration: none; box-shadow: 0 8px 20px rgba(47,111,237,0.28);
   }
-  .cta-sub { font-size: 13px; color: var(--sub); margin-top: 10px; }
+  .cta-badge {
+    display: inline-block; background: var(--accent-soft); color: var(--accent);
+    font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-left: 8px; vertical-align: middle;
+  }
+  .cta-sub { font-size: 13px; color: var(--sub); margin-top: 12px; }
   table { width: 100%; border-collapse: collapse; margin-top: 8px; }
   th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 13px; }
   th { color: var(--sub); font-weight: 600; }
@@ -76,6 +80,7 @@
 </style>
 </head>
 <body>
+
 <div class="wrap">
 
   <!-- 1 -->
@@ -84,7 +89,6 @@
     <h1>청약 공급 일정과 내 자금 여력을<br>한 화면에서 확인하세요</h1>
     <p class="lead">서울 거주 무주택 직장인을 위한, 공개 데이터 기반 청약 자금 계획 도우미</p>
   </section>
-
   <!-- 2 -->
   <section>
     <h2>데이터로 본 문제</h2>
@@ -100,6 +104,7 @@
         <div class="src">World Bank Open Data · FR.INR.LEND</div>
       </div>
     </div>
+
     <div style="margin-top:20px;">
       <div class="bar-row">
         <div class="yr">2024</div>
@@ -112,10 +117,10 @@
         <div class="val">4.192%</div>
       </div>
     </div>
-
     <div class="note">해석: 최근 1년(2024→2025) 사이 국내 평균 대출금리가 약 −11.3% 낮아져, 같은 금액을 빌린다면 이자 부담이 작년보다 다소 줄어드는 추세입니다.</div>
     <div class="note limit">한계: 이 숫자는 서울 SH의 2026년 한정 공급계획(4건)과 국가 평균·연간 금리입니다. 전국(타 시도) 공급 정보, 청약 자격·가점, 개인별 실제 대출 조건은 보여주지 않습니다.</div>
   </section>
+
   <!-- 3 -->
   <section>
     <h2>누구의 어떤 순간인가</h2>
@@ -130,8 +135,8 @@
   <section class="cta-wrap">
     <h2>지금 확인해보기</h2>
     <p>관심 단지를 고르고 보유 현금·월소득을 입력하면, 공급 정보와 참고 자금 여력을 함께 보여줍니다.</p>
-    <a class="cta-btn" href="./app.html" onclick="return false;">준비 중 · 곧 만나요</a>
-    <div class="cta-sub">F-01 계산 화면은 M6-02에서 구현합니다 (app.html)</div>
+    <a class="cta-btn" href="./app.html">지금 계산해보기 →</a>
+    <div class="cta-sub">F-01 계산 화면(app.html)으로 이동합니다</div>
   </section>
 
   <!-- 5 -->
@@ -139,11 +144,11 @@
     <h2>테스트 결과</h2>
     <table>
       <tr><th>요구사항</th><th>내용</th><th>결과</th></tr>
-      <tr><td>R-01 정상</td><td>단지 선택 + 금액 입력 → 자금 여력 표시</td><td class="pending">테스트 예정</td></tr>
+      <tr><td>R-01 정상</td><td>단지 선택 + 금액 입력 → 자금 여력 표시</td><td style="color:#1f9d55; font-weight:600;">통과</td></tr>
       <tr><td>R-02 빈값</td><td>금액 미입력 → 안내 문구</td><td class="pending">테스트 예정</td></tr>
       <tr><td>R-03 오류</td><td>음수·문자 입력 → 오류 안내</td><td class="pending">테스트 예정</td></tr>
     </table>
-    <p style="font-size:13px;">M6-02에서 F-01을 구현한 뒤 직접 실행해 결과를 채웁니다.</p>
+    <p style="font-size:13px;">R-01은 로컬에서 직접 실행해 확인했습니다. R-02·R-03은 배포 후 이어서 확인합니다.</p>
   </section>
   <!-- 6 -->
   <section>
