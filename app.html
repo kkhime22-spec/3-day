@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청약 자금 계산기 — F-01</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #16181c;
+    --sub: #5b6270;
+    --accent: #2f6fed;
+    --accent-soft: #e8effe;
+    --bad: #d64545;
+    --border: #e6e8ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 32px 20px 60px; }
+  a.back { font-size: 13px; color: var(--sub); text-decoration: none; }
+  h1 { font-size: 22px; margin: 16px 0 6px; }
+  p.lead { color: var(--sub); font-size: 14px; margin: 0 0 24px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .field select, .field input {
+    width: 100%; padding: 12px 14px; font-size: 16px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--card); color: var(--text);
+  }
+  .calc-btn {
+    width: 100%; background: var(--accent); color: #fff; font-size: 17px; font-weight: 700;
+    border: none; border-radius: 12px; padding: 16px; margin-top: 8px; cursor: pointer;
+  }
+  #error-box {
+    display: none; color: var(--bad); font-size: 13px; margin-top: -8px; margin-bottom: 16px;
+  }
+  #result-box {
+    display: none; margin-top: 24px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px;
+  }
+  .unit-name { font-weight: 700; font-size: 15px; }
+  .unit-meta { font-size: 13px; color: var(--sub); margin-top: 4px; margin-bottom: 16px; }
+  .result-num { font-size: 30px; font-weight: 700; margin-top: 4px; }
+  .result-row { margin-bottom: 14px; }
+  .result-row .label { font-size: 13px; color: var(--sub); }
+  .stat-pair { display: flex; gap: 10px; margin-top: 6px; }
+  .stat-pair .stat-card {
+    flex: 1; background: var(--accent-soft); border-radius: 10px; padding: 10px 12px;
+  }
+  .stat-pair .stat-card .num { font-size: 17px; font-weight: 700; color: var(--accent); }
+  .stat-pair .stat-card .label { font-size: 11px; color: var(--sub); }
+  .disclaimer {
+    margin-top: 20px; font-size: 12px; color: #8a8f99; background: #eceef1;
+    border-radius: 10px; padding: 12px 14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./index.html">← 처음으로</a>
+  <h1>청약 자금 계산기</h1>
+  <p class="lead">관심 단지를 고르고 보유 현금·월소득을 입력하면, 공급 정보와 참고 자금 여력을 함께 보여드립니다.</p>
+
+  <div class="field">
+    <label for="unit-select">관심 단지</label>
+    <select id="unit-select"></select>
+  </div>
+
+  <div class="field">
+    <label for="target-input">목표 자금 (만원)</label>
+    <input type="text" inputmode="numeric" id="target-input" placeholder="예: 30000">
+  </div>
+
+  <div class="field">
+    <label for="cash-input">보유 현금 (만원)</label>
+    <input type="text" inputmode="numeric" id="cash-input" placeholder="예: 15000">
+  </div>
+
+  <div class="field">
+    <label for="income-input">월소득 (만원)</label>
+    <input type="text" inputmode="numeric" id="income-input" placeholder="예: 400">
+  </div>
+
+  <div id="error-box"></div>
+
+  <button class="calc-btn" id="calc-btn">계산하기</button>
+
+  <div id="result-box">
+    <div id="unit-info-box"></div>
+    <div class="result-row">
+      <div class="label">목표 자금 대비 부족액</div>
+      <div class="result-num" id="gap-value">-</div>
+    </div>
+    <div class="stat-pair">
+      <div class="stat-card">
+        <div class="num" id="interest-value">-</div>
+        <div class="label">연 참고 이자(2025년 대출금리 4.192% 기준)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="months-value">-</div>
+        <div class="label">월소득 대비</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    출처: 서울주택도시개발공사 등록 2026-06-22(수정 06-24) · World Bank FR.INR.LEND 2025년<br>
+    이 계산은 참고용 개산이며, 실제 대출 승인·한도·자격을 의미하지 않습니다.
+  </div>
+</div>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
+
