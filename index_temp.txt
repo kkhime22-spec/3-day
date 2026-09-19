@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청약 자금 계획 — 공급 일정 + 자금 여력 한 화면</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #16181c;
+    --sub: #5b6270;
+    --accent: #2f6fed;
+    --accent-soft: #e8effe;
+    --bad: #d64545;
+    --good: #1f9d55;
+    --border: #e6e8ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 48px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  h1 { font-size: 28px; margin: 0 0 12px; }
+  h2 { font-size: 20px; margin: 0 0 20px; }
+  p { color: var(--sub); margin: 8px 0; }
+  .hero { text-align: center; padding-top: 56px; }
+  .hero .badge {
+    display: inline-block; background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .hero p.lead { font-size: 16px; color: var(--sub); }
+  .stat-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stat-card {
+    flex: 1 1 200px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px;
+  }
+  .stat-card .num { font-size: 30px; font-weight: 700; color: var(--text); }
+  .stat-card .label { font-size: 13px; color: var(--sub); margin-top: 4px; }
+  .stat-card .src { font-size: 11px; color: #9aa1ac; margin-top: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+  .bar-row .yr { width: 42px; font-size: 12px; color: var(--sub); }
+  .bar-row .bar { height: 14px; border-radius: 7px; background: var(--accent); }
+  .bar-row .val { font-size: 12px; color: var(--sub); margin-left: 8px; }
+  .note { font-size: 13px; color: var(--sub); background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; margin-top: 14px; }
+  .note.limit { background: #fdf2f2; color: #8a3b3b; }
+  .quote-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+  }
+  .quote-card .persona { font-weight: 700; margin-bottom: 6px; }
+  .quote-card .quote { font-size: 17px; font-style: normal; color: var(--text); border-left: 3px solid var(--accent); padding-left: 14px; margin: 12px 0; }
+  .quote-card .emotion { font-size: 12px; color: var(--bad); font-weight: 600; }
+  .cta-wrap { text-align: center; }
+  .cta-btn {
+    display: inline-block; background: #c7cbd1; color: #fff; font-size: 17px; font-weight: 700;
+    padding: 16px 36px; border-radius: 14px; text-decoration: none; cursor: not-allowed;
+  }
+  .cta-sub { font-size: 13px; color: var(--sub); margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  th { color: var(--sub); font-weight: 600; }
+  .pending { color: #b0862a; font-weight: 600; }
+  ul.plain { padding-left: 18px; margin: 8px 0; }
+  ul.plain li { margin: 6px 0; }
+  footer { text-align: center; padding: 28px 0 48px; }
+  footer .disclaimer {
+    display: inline-block; font-size: 12px; color: #8a8f99; background: #eceef1;
+    border-radius: 10px; padding: 10px 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1 -->
+  <section class="hero">
+    <span class="badge">서울 청약 · 자금 계획</span>
+    <h1>청약 공급 일정과 내 자금 여력을<br>한 화면에서 확인하세요</h1>
+    <p class="lead">서울 거주 무주택 직장인을 위한, 공개 데이터 기반 청약 자금 계획 도우미</p>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2>데이터로 본 문제</h2>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">1,686세대</div>
+        <div class="label">2026년 서울 SH 공공분양(토지임대부) 공급예정 총량</div>
+        <div class="src">서울주택도시개발공사 · 등록 2026-06-22(수정 06-24)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">4.192%</div>
+        <div class="label">2025년 한국 대출금리(연간)</div>
+        <div class="src">World Bank Open Data · FR.INR.LEND</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      <div class="bar-row">
+        <div class="yr">2024</div>
+        <div class="bar" style="width:189px;"></div>
+        <div class="val">4.727%</div>
+      </div>
+      <div class="bar-row">
+        <div class="yr">2025</div>
+        <div class="bar" style="width:168px; background:var(--good);"></div>
+        <div class="val">4.192%</div>
+      </div>
+    </div>
+
+    <div class="note">해석: 최근 1년(2024→2025) 사이 국내 평균 대출금리가 약 −11.3% 낮아져, 같은 금액을 빌린다면 이자 부담이 작년보다 다소 줄어드는 추세입니다.</div>
+    <div class="note limit">한계: 이 숫자는 서울 SH의 2026년 한정 공급계획(4건)과 국가 평균·연간 금리입니다. 전국(타 시도) 공급 정보, 청약 자격·가점, 개인별 실제 대출 조건은 보여주지 않습니다.</div>
+  </section>
+  <!-- 3 -->
+  <section>
+    <h2>누구의 어떤 순간인가</h2>
+    <div class="quote-card">
+      <div class="persona">정민(가명) · 32세 · 사무직 회사원 · 서울 거주 무주택</div>
+      <p>평일엔 바빠서 청약 공고를 계속 확인할 시간이 없어, 주말에 몰아서 청약홈을 훑어봅니다. 관심 단지를 발견해도, 필요한 최소 자금이 얼마인지 내 자산으로 감당되는지 계산하려 하면 막막해집니다.</p>
+      <div class="quote">"공고가 뜬 건 아는데, 내가 그거 살 돈이 되는지는 매번 다시 계산해야 해요."</div>
+      <div class="emotion">저니맵 감정 최저점(3단계 · 자금 계산 시도) — 5점 만점에 1점</div>
+    </div>
+  </section>
+  <!-- 4 -->
+  <section class="cta-wrap">
+    <h2>지금 확인해보기</h2>
+    <p>관심 단지를 고르고 보유 현금·월소득을 입력하면, 공급 정보와 참고 자금 여력을 함께 보여줍니다.</p>
+    <a class="cta-btn" href="./app.html" onclick="return false;">준비 중 · 곧 만나요</a>
+    <div class="cta-sub">F-01 계산 화면은 M6-02에서 구현합니다 (app.html)</div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2>테스트 결과</h2>
+    <table>
+      <tr><th>요구사항</th><th>내용</th><th>결과</th></tr>
+      <tr><td>R-01 정상</td><td>단지 선택 + 금액 입력 → 자금 여력 표시</td><td class="pending">테스트 예정</td></tr>
+      <tr><td>R-02 빈값</td><td>금액 미입력 → 안내 문구</td><td class="pending">테스트 예정</td></tr>
+      <tr><td>R-03 오류</td><td>음수·문자 입력 → 오류 안내</td><td class="pending">테스트 예정</td></tr>
+    </table>
+    <p style="font-size:13px;">M6-02에서 F-01을 구현한 뒤 직접 실행해 결과를 채웁니다.</p>
+  </section>
+  <!-- 6 -->
+  <section>
+    <h2>활용 방안 · 다음 개선</h2>
+    <ul class="plain">
+      <li><strong>활용 방안</strong>: 청약을 준비하는 사람이 공고 확인과 자금 계산을 오가지 않고 한 화면에서 판단할 수 있습니다.</li>
+      <li><strong>현업 적용(가설)</strong>: 부동산·금융 플랫폼에서 공급 정보와 자금 계산을 결합한 서비스로 확장할 수 있습니다.</li>
+      <li><strong>다음 개선</strong>: 서울 외 전국 공급 데이터 확장, 관심 단지 알림, 실제 은행 상담 연계(모두 오늘 범위 밖).</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="disclaimer">수업 과제 데모 · 투자·대출 판단 근거 아님</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
